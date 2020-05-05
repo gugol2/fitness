@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import { View } from 'react-native';
 import { getMetricMetaInfo } from '../utils/helpers';
 import { Slider } from './Slider';
 import { Stepper } from './Stepper';
 
-export default class AddEntry extends Component {
-  state = {
+export const AddEntry = props => {
+  const initialState = {
     run: 0,
     bike: 0,
     swim: 0,
@@ -13,66 +13,69 @@ export default class AddEntry extends Component {
     eat: 0,
   };
 
-  increment = metric => {
+  const [state, setState] = useState(initialState);
+
+  const increment = metric => {
     const { max, step } = getMetricMetaInfo(metric);
 
-    this.setState(state => {
-      const count = state[metric] + step;
+    const count = initialState[metric] + step;
 
-      return {
-        ...state,
-        [metric]: count > max ? max : count,
-      };
-    });
+    const newState = {
+      ...state,
+      [metric]: count > max ? max : count,
+    };
+
+    setState(newState);
   };
 
-  decrement = metric => {
-    this.setState(state => {
-      const count = state[metric] - getMetricMetaInfo(metric).step;
+  const decrement = metric => {
+    const count = initialState[metric] - getMetricMetaInfo(metric).step;
 
-      return {
-        ...state,
-        [metric]: count < 0 ? 0 : count,
-      };
-    });
+    const newState = {
+      ...state,
+      [metric]: count < 0 ? 0 : count,
+    };
+
+    setState(newState);
   };
 
-  slide = (metric, value) => {
-    this.setState(() => ({
+  const slide = (metric, value) => {
+    const newState = {
+      ...state,
       [metric]: value,
-    }));
+    };
+
+    setState(newState);
   };
 
-  render() {
-    const metaInfo = getMetricMetaInfo();
+  const metaInfo = getMetricMetaInfo();
 
-    return (
-      <View>
-        {Object.keys(metaInfo).map(key => {
-          const { getIcon, type, ...rest } = metaInfo[key];
-          const value = this.state[key];
+  return (
+    <View>
+      {Object.keys(metaInfo).map(key => {
+        const { getIcon, type, ...rest } = metaInfo[key];
+        const value = state[key];
 
-          return (
-            <View key={key}>
-              {getIcon()}
-              {type === 'slider' ? (
-                <Slider
-                  value={value}
-                  onChange={value => this.slide(key, value)}
-                  {...rest}
-                />
-              ) : (
-                <Stepper
-                  value={value}
-                  onIncrement={() => this.increment(key)}
-                  onDecrement={() => this.decrement(key)}
-                  {...rest}
-                />
-              )}
-            </View>
-          );
-        })}
-      </View>
-    );
-  }
-}
+        return (
+          <View key={key}>
+            {getIcon()}
+            {type === 'slider' ? (
+              <Slider
+                value={value}
+                onChange={value => slide(key, value)}
+                {...rest}
+              />
+            ) : (
+              <Stepper
+                value={value}
+                onIncrement={() => increment(key)}
+                onDecrement={() => decrement(key)}
+                {...rest}
+              />
+            )}
+          </View>
+        );
+      })}
+    </View>
+  );
+};
