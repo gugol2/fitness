@@ -8,6 +8,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import BottomTabNavigator from './navigation/BottomTabNavigator';
 import useLinking from './navigation/useLinking';
+import { AddEntry } from './components/AddEntry';
 
 const Stack = createStackNavigator();
 
@@ -47,21 +48,22 @@ export default function App(props) {
     return null;
   } else {
     return (
-      <View style={styles.container}>
-        {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-        <NavigationContainer ref={containerRef} initialState={initialNavigationState}>
-          <Stack.Navigator>
-            <Stack.Screen name="Root" component={BottomTabNavigator} />
-          </Stack.Navigator>
-        </NavigationContainer>
-      </View>
+      // <View style={styles.container}>
+      //  {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
+      //  <NavigationContainer ref={containerRef} initialState={initialNavigationState}>
+      //    <Stack.Navigator>
+      //      <Stack.Screen name="Root" component={BottomTabNavigator} />
+      //    </Stack.Navigator>
+      //  </NavigationContainer>
+      // </View>
+      <View><AddEntry /></View>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-});
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     backgroundColor: '#fff',
+//   },
+// });
