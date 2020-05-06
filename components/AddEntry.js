@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { getMetricMetaInfo, timeToString } from '../utils/helpers';
 import { View, TouchableOpacity, Text } from 'react-native';
-import { Slider } from './Slider';
+import { AppSlider } from './AppSlider';
 import { Stepper } from './Stepper';
 import { DateHeader } from './DateHeader';
 
@@ -77,7 +77,9 @@ export const AddEntry = props => {
   return (
     <View>
       <DateHeader date={new Date().toLocaleDateString()} />
+
       <Text>{JSON.stringify(state)}</Text>
+
       {Object.keys(metaInfo).map(key => {
         const { getIcon, type, ...rest } = metaInfo[key];
         const value = state[key];
@@ -86,7 +88,7 @@ export const AddEntry = props => {
           <View key={key}>
             {getIcon()}
             {type === 'slider' ? (
-              <Slider
+              <AppSlider
                 value={value}
                 onChange={value => slide(key, value)}
                 {...rest}
