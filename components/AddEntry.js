@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { getMetricMetaInfo, timeToString } from '../utils/helpers';
 import { View, TouchableOpacity, Text } from 'react-native';
 import { AppSlider } from './AppSlider';
-import { Stepper } from './Stepper';
+import { Steppers } from './Steppers';
 import { DateHeader } from './DateHeader';
 
 const SubmitBtn = ({ onPress }) => {
@@ -94,7 +94,7 @@ export const AddEntry = props => {
                 {...rest}
               />
             ) : (
-              <Stepper
+              <Steppers
                 value={value}
                 onIncrement={() => increment(key)}
                 onDecrement={() => decrement(key)}
