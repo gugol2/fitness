@@ -3,19 +3,18 @@ import {
   getMetricMetaInfo,
   timeToString,
   getDailyReminderValue,
-} from '../utils/helpers';
+} from '../../utils/helpers';
 import { View, Text } from 'react-native';
-import { AppSlider } from './AppSlider';
-import { Steppers } from './Steppers';
-import { DateHeader } from './DateHeader';
-import { TextButton } from './TextButton';
+import { AppSlider } from '../AppSlider';
+import { Steppers } from '../Steppers';
+import { DateHeader } from '../DateHeader';
+import { TextButton } from '../TextButton';
 import { Ionicons } from '@expo/vector-icons';
-import { submitEntry, removeEntry } from '../utils/api';
-import { connect } from 'react-redux';
-import { addEntry } from '../actions';
-import { SubmitBtn } from './SubmitBtn';
+import { submitEntry, removeEntry } from '../../utils/api';
+import { addEntry } from '../../actions';
+import { SubmitBtn } from '../SubmitBtn';
 
-const AddEntry = ({ dispatch, alreadyLogged }) => {
+export const AddEntry = ({ dispatch, alreadyLogged }) => {
   const initialState = {
     run: 0,
     bike: 0,
@@ -143,13 +142,3 @@ const AddEntry = ({ dispatch, alreadyLogged }) => {
     </View>
   );
 };
-
-const mapStateToProps = state => {
-  const key = timeToString();
-
-  return {
-    alreadyLogged: state[key] && typeof state[key].today === 'undefined',
-  };
-};
-
-export const ConnectedAddEntry = connect(mapStateToProps)(AddEntry);
