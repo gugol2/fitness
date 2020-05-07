@@ -4,7 +4,7 @@ import {
   timeToString,
   getDailyReminderValue,
 } from '../utils/helpers';
-import { View, TouchableOpacity, Text } from 'react-native';
+import { View, Text } from 'react-native';
 import { AppSlider } from './AppSlider';
 import { Steppers } from './Steppers';
 import { DateHeader } from './DateHeader';
@@ -13,14 +13,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { submitEntry, removeEntry } from '../utils/api';
 import { connect } from 'react-redux';
 import { addEntry } from '../actions';
-
-const SubmitBtn = ({ onPress }) => {
-  return (
-    <TouchableOpacity onPress={onPress}>
-      <Text>SUBMIT</Text>
-    </TouchableOpacity>
-  );
-};
+import { SubmitBtn } from './SubmitBtn';
 
 const AddEntry = ({ dispatch, alreadyLogged }) => {
   const initialState = {
