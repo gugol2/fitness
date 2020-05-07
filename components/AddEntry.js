@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
-import { getMetricMetaInfo, timeToString } from '../utils/helpers';
+import {
+  getMetricMetaInfo,
+  timeToString,
+  getDailyReminderValue,
+} from '../utils/helpers';
 import { View, TouchableOpacity, Text } from 'react-native';
 import { AppSlider } from './AppSlider';
 import { Steppers } from './Steppers';
@@ -8,6 +12,7 @@ import { TextButton } from './TextButton';
 import { Ionicons } from '@expo/vector-icons';
 import { submitEntry, removeEntry } from '../utils/api';
 import { connect } from 'react-redux';
+import { addEntry } from '../actions';
 
 const SubmitBtn = ({ onPress }) => {
   return (
@@ -17,9 +22,7 @@ const SubmitBtn = ({ onPress }) => {
   );
 };
 
-const AddEntry = props => {
-  console.log(props);
-
+const AddEntry = ({ dispatch, alreadyLogged }) => {
   const initialState = {
     run: 0,
     bike: 0,
@@ -70,7 +73,13 @@ const AddEntry = props => {
     const entry = state;
 
     // Update Redux
+    dispatch(
+      addEntry({
+        [key]: entry,
+      }),
+    );
 
+    // Reset the state
     setState({ run: 0, bike: 0, swim: 0, sleep: 0, eat: 0 });
 
     // Navigate to home
@@ -85,6 +94,11 @@ const AddEntry = props => {
     const key = timeToString();
 
     // Update Redux
+    dispatch(
+      addEntry({
+        [key]: getDailyReminderValue(),
+      }),
+    );
 
     // Route to Home
 
@@ -92,7 +106,7 @@ const AddEntry = props => {
     removeEntry(key);
   };
 
-  if (props.alreadyLogged) {
+  if (alreadyLogged) {
     return (
       <View>
         <Ionicons name={'ios-happy'} size={100} />
@@ -141,7 +155,7 @@ const mapStateToProps = state => {
   const key = timeToString();
 
   return {
-    alreadyLogged: state[key] && typeof state[ke].today === 'undefined',
+    alreadyLogged: state[key] && typeof state[key].today === 'undefined',
   };
 };
 
