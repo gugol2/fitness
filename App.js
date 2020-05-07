@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { View } from 'react-native';
-import { AddEntry } from './components/AddEntry';
+import { ConnectedAddEntry } from './components/AddEntry';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import { entries } from './reducers';
@@ -11,7 +11,7 @@ export default function App(props) {
   return (
     <Provider store={store}>
       <View>
-        <AddEntry />
+        <ConnectedAddEntry />
       </View>
     </Provider>
   );

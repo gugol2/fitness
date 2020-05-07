@@ -7,6 +7,7 @@ import { DateHeader } from './DateHeader';
 import { TextButton } from './TextButton';
 import { Ionicons } from '@expo/vector-icons';
 import { submitEntry, removeEntry } from '../utils/api';
+import { connect } from 'react-redux';
 
 const SubmitBtn = ({ onPress }) => {
   return (
@@ -16,7 +17,9 @@ const SubmitBtn = ({ onPress }) => {
   );
 };
 
-export const AddEntry = props => {
+const AddEntry = props => {
+  console.log(props);
+
   const initialState = {
     run: 0,
     bike: 0,
@@ -133,3 +136,13 @@ export const AddEntry = props => {
     </View>
   );
 };
+
+const mapStateToProps = state => {
+  const key = timeToString();
+
+  return {
+    alreadyLogged: state[key] && typeof state[ke].today === 'undefined',
+  };
+};
+
+export const ConnectedAddEntry = connect(mapStateToProps)(AddEntry);
