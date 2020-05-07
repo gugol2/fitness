@@ -6,6 +6,7 @@ import { Steppers } from './Steppers';
 import { DateHeader } from './DateHeader';
 import { TextButton } from './TextButton';
 import { Ionicons } from '@expo/vector-icons';
+import { submitEntry, removeEntry } from '../utils/api';
 
 const SubmitBtn = ({ onPress }) => {
   return (
@@ -17,11 +18,11 @@ const SubmitBtn = ({ onPress }) => {
 
 export const AddEntry = props => {
   const initialState = {
-    run: 1,
+    run: 0,
     bike: 0,
     swim: 0,
     sleep: 0,
-    eat: 10,
+    eat: 0,
   };
 
   const [state, setState] = useState(initialState);
@@ -72,6 +73,7 @@ export const AddEntry = props => {
     // Navigate to home
 
     // Save to "DB"
+    submitEntry({ key, entry });
 
     // Clear local notification
   };
@@ -84,6 +86,7 @@ export const AddEntry = props => {
     // Route to Home
 
     // Update DB
+    removeEntry(key);
   };
 
   if (props.alreadyLogged) {

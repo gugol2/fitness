@@ -1,9 +1,9 @@
 // utils/_calendar.js
 
-import { AsyncStorage } from "react-native";
-import { getMetricMetaInfo, timeToString } from "./helpers";
+import { AsyncStorage } from 'react-native';
+import { getMetricMetaInfo, timeToString } from './helpers';
 
-export const CALENDAR_STORAGE_KEY = "UdaciFitness:calendar";
+export const CALENDAR_STORAGE_KEY = 'Fitness:calendar';
 
 function getRandomNumber(max) {
   return Math.floor(Math.random() * max) + 0;
@@ -43,7 +43,7 @@ function setMissingDates(dates) {
     const time = timestamp + i * 24 * 60 * 60 * 1000;
     const strTime = timeToString(time);
 
-    if (typeof dates[strTime] === "undefined") {
+    if (typeof dates[strTime] === 'undefined') {
       dates[strTime] = null;
     }
   }
