@@ -6,7 +6,11 @@ import { createStore } from 'redux';
 import { entries } from './reducers';
 
 export default function App(props) {
-  const store = createStore(entries);
+  const store = createStore(
+    entries,
+    window.__REDUX_DEVTOOLS_EXTENSION__ &&
+      window.__REDUX_DEVTOOLS_EXTENSION__(),
+  );
 
   return (
     <Provider store={store}>
