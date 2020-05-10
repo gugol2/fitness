@@ -4,6 +4,7 @@ import { ConnectedAddEntry } from './components/AddEntry';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import { entries } from './reducers';
+import History from './components/History';
 
 export default function App(props) {
   const store = createStore(
@@ -15,7 +16,8 @@ export default function App(props) {
   return (
     <Provider store={store}>
       <View style={{ flex: 1 }}>
-        <ConnectedAddEntry />
+        <History />
+        {/* <ConnectedAddEntry /> */}
       </View>
     </Provider>
   );
