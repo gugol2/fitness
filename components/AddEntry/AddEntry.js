@@ -4,7 +4,7 @@ import {
   timeToString,
   getDailyReminderValue,
 } from '../../utils/helpers';
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet, Platform } from 'react-native';
 import { AppSlider } from '../AppSlider';
 import { Steppers } from '../Steppers';
 import { DateHeader } from '../DateHeader';
@@ -13,6 +13,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { submitEntry, removeEntry } from '../../utils/api';
 import { addEntry } from '../../actions';
 import { SubmitBtn } from '../SubmitBtn';
+import { white } from '../../utils/colors';
 
 export const AddEntry = ({ dispatch, alreadyLogged }) => {
   const initialState = {
@@ -100,16 +101,21 @@ export const AddEntry = ({ dispatch, alreadyLogged }) => {
 
   if (alreadyLogged) {
     return (
-      <View>
-        <Ionicons name={'ios-happy'} size={100} />
+      <View style={styles.center}>
+        <Ionicons
+          name={Platform.OS === 'ios' ? 'ios-happy' : 'md-happy'}
+          size={100}
+        />
         <Text>You already logged your information for today.</Text>
-        <TextButton onPress={reset}>Reset</TextButton>
+        <TextButton onPress={reset} style={{ padding: 10 }}>
+          Reset
+        </TextButton>
       </View>
     );
   }
 
   return (
-    <View>
+    <View style={styles.container}>
       <DateHeader date={new Date().toLocaleDateString()} />
 
       <Text>{JSON.stringify(state)}</Text>
@@ -119,7 +125,7 @@ export const AddEntry = ({ dispatch, alreadyLogged }) => {
         const value = state[key];
 
         return (
-          <View key={key}>
+          <View key={key} style={styles.row}>
             {getIcon()}
             {type === 'slider' ? (
               <AppSlider
@@ -142,3 +148,23 @@ export const AddEntry = ({ dispatch, alreadyLogged }) => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+    backgroundColor: white,
+  },
+  row: {
+    flexDirection: 'row',
+    flex: 1,
+    alignItems: 'center',
+  },
+  center: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginLeft: 30,
+    marginRight: 30,
+  },
+});
