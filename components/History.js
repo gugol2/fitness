@@ -23,7 +23,7 @@ const History = props => {
           );
         }
       })
-      .then(() => setReady(true));
+      .then(() => setReady(!ready));
   }, []);
 
   return (
