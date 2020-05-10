@@ -11,19 +11,21 @@ const History = props => {
   useEffect(() => {
     const { dispatch } = props;
 
-    fetchCalendarResults()
-      .then(entries => dispatch(receiveEntries(entries)))
+    async function saveEntriesToStore() {
+      const entries = await fetchCalendarResults();
 
-      .then(({ entries }) => {
-        if (!entries[timeToString()]) {
-          dispatch(
-            addEntry({
-              [timeToString()]: getDailyReminderValue(),
-            }),
-          );
-        }
-      })
-      .then(() => setReady(!ready));
+      const action = await dispatch(receiveEntries(entries));
+
+      if (!action.entries[timeToString()]) {
+        await dispatch(
+          addEntry({
+            [timeToString()]: getDailyReminderValue(),
+          }),
+        );
+      }
+    }
+
+    saveEntriesToStore().then(() => setReady(!ready));
   }, []);
 
   return (
