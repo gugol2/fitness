@@ -14,7 +14,7 @@ export default function App(props) {
 
   return (
     <Provider store={store}>
-      <View>
+      <View style={{ flex: 1 }}>
         <ConnectedAddEntry />
       </View>
     </Provider>
