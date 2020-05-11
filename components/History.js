@@ -33,9 +33,9 @@ const History = props => {
   );
 };
 
-function mapStateToProps(entries) {
+function mapStateToProps(state) {
   return {
-    entries,
+    entries: state,
   };
 }
 
