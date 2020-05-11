@@ -7,6 +7,7 @@ import { fetchCalendarResults } from '../utils/api';
 import UdaciFitnessCalendar from 'udacifitness-calendar-fix';
 import { white } from '../utils/colors';
 import { DateHeader } from './DateHeader';
+import { MetricCard } from './MetricCard';
 
 const History = props => {
   const [ready, setReady] = useState(false);
@@ -38,7 +39,7 @@ const History = props => {
         </View>
       ) : (
         <TouchableOpacity onPress={() => console.log('Pressed!')}>
-          <Text>{JSON.stringify(metrics)}</Text>
+          <MetricCard date={formattedDate} metrics={metrics} />
         </TouchableOpacity>
       )}
     </View>
