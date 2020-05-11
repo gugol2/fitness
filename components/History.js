@@ -8,6 +8,7 @@ import UdaciFitnessCalendar from 'udacifitness-calendar-fix';
 import { white } from '../utils/colors';
 import { DateHeader } from './DateHeader';
 import { MetricCard } from './MetricCard';
+import { AppLoading } from 'expo';
 
 const History = props => {
   const [ready, setReady] = useState(false);
@@ -57,6 +58,10 @@ const History = props => {
   };
 
   const { entries } = props;
+
+  if (!ready) {
+    return <AppLoading />;
+  }
 
   return (
     <UdaciFitnessCalendar
