@@ -9,8 +9,10 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { purple, white } from './utils/colors';
 import { FontAwesome, Ionicons } from '@expo/vector-icons';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-const Stack = createStackNavigator();
+// const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
 
 export default function App(props) {
   const store = createStore(
@@ -23,7 +25,7 @@ export default function App(props) {
     <Provider store={store}>
       <View style={{ flex: 1 }}>
         <NavigationContainer>
-          <Stack.Navigator
+          <Tab.Navigator
             initialRouteName='History'
             screenOptions={{
               headerTintColor: Platform.OS === 'ios' ? purple : white,
@@ -43,7 +45,7 @@ export default function App(props) {
               },
             }}
           >
-            <Stack.Screen
+            <Tab.Screen
               name='History'
               component={ConnectedHistory}
               options={{
@@ -66,7 +68,7 @@ export default function App(props) {
                 ),
               }}
             />
-            <Stack.Screen
+            <Tab.Screen
               name='Add Entry'
               component={ConnectedAddEntry}
               options={{
@@ -90,7 +92,7 @@ export default function App(props) {
                 },
               }}
             />
-          </Stack.Navigator>
+          </Tab.Navigator>
         </NavigationContainer>
       </View>
     </Provider>
