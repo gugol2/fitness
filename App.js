@@ -8,6 +8,7 @@ import { ConnectedHistory } from './components/History';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { purple, white } from './utils/colors';
+import { FontAwesome, Ionicons } from '@expo/vector-icons';
 
 const Stack = createStackNavigator();
 
@@ -45,12 +46,34 @@ export default function App(props) {
             <Stack.Screen
               name='History'
               component={ConnectedHistory}
-              options={{ title: 'My History' }}
+              options={{
+                headerTitle: ({ tintColor }) => {
+                  console.log('props are:', props);
+                  return (
+                    <Ionicons
+                      name='ios-bookmarks'
+                      size={30}
+                      color={tintColor}
+                    />
+                  );
+                },
+              }}
             />
             <Stack.Screen
               name='Add Entry'
               component={ConnectedAddEntry}
-              options={{ title: 'My Add Entry' }}
+              options={{
+                headerTitle: props => {
+                  console.log('props Add Entry:', props);
+                  return (
+                    <FontAwesome
+                      name='plus-square'
+                      size={30}
+                      color={props.tintColor}
+                    />
+                  );
+                },
+              }}
             />
           </Stack.Navigator>
         </NavigationContainer>
