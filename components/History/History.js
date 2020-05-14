@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, Button } from 'react-native';
 import { receiveEntries, addEntry } from '../../actions';
 import { timeToString, getDailyReminderValue } from '../../utils/helpers';
 import { fetchCalendarResults } from '../../utils/api';
@@ -9,12 +9,10 @@ import { MetricCard } from '../MetricCard';
 import { AppLoading } from 'expo';
 import { styles } from './styles';
 
-export const History = props => {
+export const History = ({ navigation, dispatch, entries }) => {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    const { dispatch } = props;
-
     fetchCalendarResults()
       .then(entries => dispatch(receiveEntries(entries)))
 
@@ -42,6 +40,10 @@ export const History = props => {
           <MetricCard date={formattedDate} metrics={metrics} />
         </TouchableOpacity>
       )}
+      <Button
+        title='Add Entry'
+        onPress={() => navigation.navigate('Add Entry')}
+      />
     </View>
   );
 
@@ -55,8 +57,6 @@ export const History = props => {
       </View>
     );
   };
-
-  const { entries } = props;
 
   if (!ready) {
     return <AppLoading />;
