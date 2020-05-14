@@ -25,7 +25,7 @@ export default function App(props) {
       <View style={{ flex: 1 }}>
         <CustomStatusBar backgroundColor={purple} barStyle='light-content' />
 
-        <NavigationContainer>
+        {/* <NavigationContainer>
           <Tab.Navigator
             initialRouteName='History'
             screenOptions={{
@@ -49,6 +49,10 @@ export default function App(props) {
               activeTintColor: 'tomato',
               inactiveTintColor: 'gray',
             }}
+
+            navigationOptions={{
+              header: null,
+            }}
           >
             <Tab.Screen
               name='History'
@@ -68,6 +72,44 @@ export default function App(props) {
                 ),
               }}
             />
+          </Tab.Navigator>
+        </NavigationContainer> */}
+
+        <NavigationContainer>
+          <Tab.Navigator
+            initialRouteName='AddEntry'
+            screenOptions={({ route }) => ({
+              tabBarIcon: ({ color, size }) => {
+                let icon;
+                if (route.name === 'Add Entry') {
+                  icon = (
+                    <FontAwesome name='plus-square' size={size} color={color} />
+                  );
+                } else if (route.name === 'History') {
+                  icon = (
+                    <Ionicons name='ios-bookmarks' size={size} color={color} />
+                  );
+                }
+                return icon;
+              },
+            })}
+            tabBarOptions={{
+              activeTintColor: Platform.OS === 'ios' ? purple : white,
+              style: {
+                height: 56,
+                backgroundColor: Platform.OS === 'ios' ? white : purple,
+                shadowColor: 'rgba(0, 0, 0, 0.24)',
+                shadowOffset: {
+                  width: 0,
+                  height: 3,
+                },
+                shadowRadius: 6,
+                shadowOpacity: 1,
+              },
+            }}
+          >
+            <Tab.Screen name='Add Entry' component={ConnectedAddEntry} />
+            <Tab.Screen name='History' component={ConnectedHistory} />
           </Tab.Navigator>
         </NavigationContainer>
       </View>
