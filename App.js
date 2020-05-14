@@ -22,6 +22,8 @@ export default function App(props) {
   return (
     <Provider store={store}>
       <View style={{ flex: 1 }}>
+        <View style={{ height: 20 }} />
+
         <NavigationContainer>
           <Tab.Navigator
             initialRouteName='History'
