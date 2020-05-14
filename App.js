@@ -9,6 +9,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { purple, white } from './utils/colors';
 import { FontAwesome, Ionicons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { CustomStatusBar } from './components/CustomStatusBar';
 
 const Tab = createBottomTabNavigator();
 
@@ -22,7 +23,7 @@ export default function App(props) {
   return (
     <Provider store={store}>
       <View style={{ flex: 1 }}>
-        <View style={{ height: 20 }} />
+        <CustomStatusBar backgroundColor={purple} barStyle='light-content' />
 
         <NavigationContainer>
           <Tab.Navigator
