@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, Platform, Button } from 'react-native';
+import { View, Platform } from 'react-native';
 import { ConnectedAddEntry } from './components/AddEntry';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
@@ -10,8 +10,13 @@ import { purple, white } from './utils/colors';
 import { FontAwesome, Ionicons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { CustomStatusBar } from './components/CustomStatusBar';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
-const Tab = createBottomTabNavigator();
+// const Tab = createBottomTabNavigator();
+const Tab =
+  Platform.OS === 'ios'
+    ? createBottomTabNavigator()
+    : createMaterialTopTabNavigator();
 
 export default function App(props) {
   const store = createStore(
@@ -27,7 +32,7 @@ export default function App(props) {
 
         <NavigationContainer>
           <Tab.Navigator
-            initialRouteName='AddEntry'
+            initialRouteName='History'
             tabBarOptions={{
               activeTintColor: Platform.OS === 'ios' ? purple : white,
               style: {
