@@ -25,74 +25,9 @@ export default function App(props) {
       <View style={{ flex: 1 }}>
         <CustomStatusBar backgroundColor={purple} barStyle='light-content' />
 
-        {/* <NavigationContainer>
-          <Tab.Navigator
-            initialRouteName='History'
-            screenOptions={{
-              headerTintColor: Platform.OS === 'ios' ? purple : white,
-              headerStyle: {
-                height: 56,
-                backgroundColor: Platform.OS === 'ios' ? white : purple,
-                shadowColor: 'rgba(0, 0, 0, 0.24)',
-                shadowOffset: {
-                  width: 0,
-                  height: 3,
-                },
-                shadowRadius: 6,
-                shadowOpacity: 1,
-              },
-              headerTitleStyle: {
-                fontWeight: 'bold',
-              },
-            }}
-            tabBarOptions={{
-              activeTintColor: 'tomato',
-              inactiveTintColor: 'gray',
-            }}
-
-            navigationOptions={{
-              header: null,
-            }}
-          >
-            <Tab.Screen
-              name='History'
-              component={ConnectedHistory}
-              options={{
-                tabBarIcon: ({ tintColor }) => (
-                  <Ionicons name='ios-bookmarks' size={30} color={tintColor} />
-                ),
-              }}
-            />
-            <Tab.Screen
-              name='Add Entry'
-              component={ConnectedAddEntry}
-              options={{
-                tabBarIcon: ({ tintColor }) => (
-                  <FontAwesome name='plus-square' size={30} color={tintColor} />
-                ),
-              }}
-            />
-          </Tab.Navigator>
-        </NavigationContainer> */}
-
         <NavigationContainer>
           <Tab.Navigator
             initialRouteName='AddEntry'
-            screenOptions={({ route }) => ({
-              tabBarIcon: ({ color, size }) => {
-                let icon;
-                if (route.name === 'Add Entry') {
-                  icon = (
-                    <FontAwesome name='plus-square' size={size} color={color} />
-                  );
-                } else if (route.name === 'History') {
-                  icon = (
-                    <Ionicons name='ios-bookmarks' size={size} color={color} />
-                  );
-                }
-                return icon;
-              },
-            })}
             tabBarOptions={{
               activeTintColor: Platform.OS === 'ios' ? purple : white,
               style: {
@@ -108,8 +43,24 @@ export default function App(props) {
               },
             }}
           >
-            <Tab.Screen name='Add Entry' component={ConnectedAddEntry} />
-            <Tab.Screen name='History' component={ConnectedHistory} />
+            <Tab.Screen
+              name='Add Entry'
+              component={ConnectedAddEntry}
+              options={{
+                tabBarIcon: ({ color }) => (
+                  <FontAwesome name='plus-square' size={30} color={color} />
+                ),
+              }}
+            />
+            <Tab.Screen
+              name='History'
+              component={ConnectedHistory}
+              options={{
+                tabBarIcon: ({ color }) => (
+                  <Ionicons name='ios-bookmarks' size={30} color={color} />
+                ),
+              }}
+            />
           </Tab.Navigator>
         </NavigationContainer>
       </View>
