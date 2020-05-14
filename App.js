@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, Platform } from 'react-native';
+import { View, Platform, Button } from 'react-native';
 import { ConnectedAddEntry } from './components/AddEntry';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
@@ -57,19 +57,34 @@ export default function App(props) {
                     />
                   );
                 },
+                headerRight: ({ tintColor }) => (
+                  <Button
+                    onPress={() => alert('This is a button!')}
+                    title='History'
+                    color={{ tintColor }}
+                  />
+                ),
               }}
             />
             <Stack.Screen
               name='Add Entry'
               component={ConnectedAddEntry}
               options={{
-                headerTitle: props => {
-                  console.log('props Add Entry:', props);
+                headerTitle: ({ tintColor }) => {
                   return (
                     <FontAwesome
                       name='plus-square'
                       size={30}
-                      color={props.tintColor}
+                      color={tintColor}
+                    />
+                  );
+                },
+                headerRight: ({ tintColor }) => {
+                  return (
+                    <Button
+                      onPress={() => alert('This is a button!')}
+                      title='Add Entry'
+                      color={{ tintColor }}
                     />
                   );
                 },
