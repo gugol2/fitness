@@ -40,10 +40,10 @@ export const History = ({ navigation, dispatch, entries }) => {
           <MetricCard date={formattedDate} metrics={metrics} />
         </TouchableOpacity>
       )}
-      <Button
+      {/* <Button
         title='Add Entry'
         onPress={() => navigation.navigate('Add Entry')}
-      />
+      /> */}
     </View>
   );
 

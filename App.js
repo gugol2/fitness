@@ -6,12 +6,10 @@ import { createStore } from 'redux';
 import { entries } from './reducers';
 import { ConnectedHistory } from './components/History';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
 import { purple, white } from './utils/colors';
 import { FontAwesome, Ionicons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-// const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 export default function App(props) {
@@ -44,27 +42,17 @@ export default function App(props) {
                 fontWeight: 'bold',
               },
             }}
+            tabBarOptions={{
+              activeTintColor: 'tomato',
+              inactiveTintColor: 'gray',
+            }}
           >
             <Tab.Screen
               name='History'
               component={ConnectedHistory}
               options={{
-                headerTitle: ({ tintColor }) => {
-                  console.log('props are:', props);
-                  return (
-                    <Ionicons
-                      name='ios-bookmarks'
-                      size={30}
-                      color={tintColor}
-                    />
-                  );
-                },
-                headerRight: ({ tintColor }) => (
-                  <Button
-                    onPress={() => alert('This is a button!')}
-                    title='History'
-                    color={{ tintColor }}
-                  />
+                tabBarIcon: ({ tintColor }) => (
+                  <Ionicons name='ios-bookmarks' size={30} color={tintColor} />
                 ),
               }}
             />
@@ -72,24 +60,9 @@ export default function App(props) {
               name='Add Entry'
               component={ConnectedAddEntry}
               options={{
-                headerTitle: ({ tintColor }) => {
-                  return (
-                    <FontAwesome
-                      name='plus-square'
-                      size={30}
-                      color={tintColor}
-                    />
-                  );
-                },
-                headerRight: ({ tintColor }) => {
-                  return (
-                    <Button
-                      onPress={() => alert('This is a button!')}
-                      title='Add Entry'
-                      color={{ tintColor }}
-                    />
-                  );
-                },
+                tabBarIcon: ({ tintColor }) => (
+                  <FontAwesome name='plus-square' size={30} color={tintColor} />
+                ),
               }}
             />
           </Tab.Navigator>
