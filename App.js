@@ -22,8 +22,16 @@ export default function App(props) {
       <View style={{ flex: 1 }}>
         <NavigationContainer>
           <Stack.Navigator initialRouteName='History'>
-            <Stack.Screen name='History' component={ConnectedHistory} />
-            <Stack.Screen name='Add Entry' component={ConnectedAddEntry} />
+            <Stack.Screen
+              name='History'
+              component={ConnectedHistory}
+              options={{ title: 'My History' }}
+            />
+            <Stack.Screen
+              name='Add Entry'
+              component={ConnectedAddEntry}
+              options={{ title: 'My Add Entry' }}
+            />
           </Stack.Navigator>
         </NavigationContainer>
       </View>
