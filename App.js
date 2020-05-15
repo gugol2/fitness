@@ -55,6 +55,7 @@ export default function App(props) {
                 tabBarIcon: ({ color }) => (
                   <FontAwesome name='plus-square' size={30} color={color} />
                 ),
+                title: 'Add Entry',
               }}
             />
             <Tab.Screen
@@ -64,6 +65,7 @@ export default function App(props) {
                 tabBarIcon: ({ color }) => (
                   <Ionicons name='ios-bookmarks' size={30} color={color} />
                 ),
+                title: 'History',
               }}
             />
           </Tab.Navigator>
