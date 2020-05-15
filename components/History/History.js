@@ -36,14 +36,12 @@ export const History = ({ navigation, dispatch, entries }) => {
           <Text style={styles.noDataText}>{today}</Text>
         </View>
       ) : (
-        <TouchableOpacity onPress={() => console.log('Pressed!')}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('EntryDetail', { entryId: key })}
+        >
           <MetricCard date={formattedDate} metrics={metrics} />
         </TouchableOpacity>
       )}
-      {/* <Button
-        title='Add Entry'
-        onPress={() => navigation.navigate('Add Entry')}
-      /> */}
     </View>
   );
 
