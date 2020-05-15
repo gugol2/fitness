@@ -1,9 +1,10 @@
-import React, { useLayoutEffect } from 'react';
-import { Text, View } from 'react-native';
+import React, { useLayoutEffect, useEffect } from 'react';
+import { Text, View, StyleSheet } from 'react-native';
+import { MetricCard } from './MetricCard';
+import { connect } from 'react-redux';
+import { white } from '../utils/colors';
 
-export const EntryDetail = ({ navigation, route }) => {
-  const { entryId } = route.params;
-
+const EntryDetail = ({ navigation, entryId, metrics }) => {
   const setTitle = entryId => {
     if (!entryId) return;
 
@@ -21,8 +22,27 @@ export const EntryDetail = ({ navigation, route }) => {
   }, [navigation, entryId]);
 
   return (
-    <View>
-      <Text>Entry Detail - {JSON.stringify(entryId)}</Text>
+    <View style={styles.container}>
+      <MetricCard metrics={metrics} date={entryId} />
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: white,
+    padding: 15,
+  },
+});
+
+const mapStateToProps = (state, { route }) => {
+  const { entryId } = route.params;
+
+  return {
+    entryId,
+    metrics: state[entryId],
+  };
+};
+
+export const ConnectedEntryDetail = connect(mapStateToProps)(EntryDetail);

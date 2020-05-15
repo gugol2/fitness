@@ -12,7 +12,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { CustomStatusBar } from './components/CustomStatusBar';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
-import { EntryDetail } from './components/EntryDetail';
+import { ConnectedEntryDetail } from './components/EntryDetail';
 
 // const Tab = createBottomTabNavigator();
 const Tab =
@@ -30,12 +30,15 @@ const MainNav = () => (
     />
     <Stack.Screen
       name='EntryDetail'
-      component={EntryDetail}
+      component={ConnectedEntryDetail}
       options={{
         headerTintColor: white,
         headerStyle: {
           backgroundColor: purple,
           height: 56,
+        },
+        headerTitleStyle: {
+          // padding: 10,
         },
       }}
     />
