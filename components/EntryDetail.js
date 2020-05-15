@@ -6,10 +6,13 @@ import { white } from '../utils/colors';
 import { TextButton } from './TextButton';
 import { removeEntry } from '../utils/api';
 import { addEntry } from '../actions';
-import { timeToString } from '../utils/helpers';
+import { timeToString, getDailyReminderValue } from '../utils/helpers';
 
 const shouldNotRerender = (prevProps, nextProps) => {
-  return nextProps.metrics === null;
+  return (
+    nextProps.metrics === null ||
+    (nextProps.metrics && nextProps.metrics.today !== null)
+  );
 };
 
 const myComponent = ({
