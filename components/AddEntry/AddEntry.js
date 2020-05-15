@@ -14,8 +14,9 @@ import { submitEntry, removeEntry } from '../../utils/api';
 import { addEntry } from '../../actions';
 import { SubmitBtn } from '../SubmitBtn';
 import { white } from '../../utils/colors';
+import { CommonActions } from '@react-navigation/native';
 
-export const AddEntry = ({ dispatch, alreadyLogged }) => {
+export const AddEntry = ({ dispatch, alreadyLogged, navigation }) => {
   const initialState = {
     run: 0,
     bike: 0,
@@ -37,6 +38,14 @@ export const AddEntry = ({ dispatch, alreadyLogged }) => {
     };
 
     setState(newState);
+  };
+
+  const toHome = () => {
+    navigation.dispatch(
+      CommonActions.goBack({
+        key: 'AddEntry',
+      }),
+    );
   };
 
   const decrement = metric => {
@@ -76,6 +85,7 @@ export const AddEntry = ({ dispatch, alreadyLogged }) => {
     setState({ run: 0, bike: 0, swim: 0, sleep: 0, eat: 0 });
 
     // Navigate to home
+    toHome();
 
     // Save to "DB"
     submitEntry({ key, entry });
@@ -94,6 +104,7 @@ export const AddEntry = ({ dispatch, alreadyLogged }) => {
     );
 
     // Route to Home
+    toHome();
 
     // Update DB
     removeEntry(key);
