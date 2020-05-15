@@ -3,8 +3,23 @@ import { View, StyleSheet } from 'react-native';
 import { MetricCard } from './MetricCard';
 import { connect } from 'react-redux';
 import { white } from '../utils/colors';
+import { TextButton } from './TextButton';
+import { removeEntry } from '../utils/api';
+import { addEntry } from '../actions';
+import { timeToString } from '../utils/helpers';
 
-const EntryDetail = ({ navigation, entryId, metrics, formattedDate }) => {
+const shouldNotRerender = (prevProps, nextProps) => {
+  return nextProps.metrics === null;
+};
+
+const myComponent = ({
+  navigation,
+  entryId,
+  metrics,
+  formattedDate,
+  remove,
+  goBack,
+}) => {
   // const setTitle = entryId => {
   //   if (!entryId) return;
 
@@ -17,6 +32,12 @@ const EntryDetail = ({ navigation, entryId, metrics, formattedDate }) => {
   //   });
   // };
 
+  const reset = () => {
+    remove();
+    goBack();
+    removeEntry(entryId);
+  };
+
   useLayoutEffect(() => {
     navigation.setOptions({
       title: formattedDate,
@@ -26,9 +47,14 @@ const EntryDetail = ({ navigation, entryId, metrics, formattedDate }) => {
   return (
     <View style={styles.container}>
       <MetricCard metrics={metrics} />
+      <TextButton onPress={reset} style={{ margin: 20 }}>
+        Reset
+      </TextButton>
     </View>
   );
 };
+
+const EntryDetail = React.memo(myComponent, shouldNotRerender);
 
 const styles = StyleSheet.create({
   container: {
@@ -48,4 +74,22 @@ const mapStateToProps = (state, { route }) => {
   };
 };
 
-export const ConnectedEntryDetail = connect(mapStateToProps)(EntryDetail);
+const mapDispatchToProps = (dispatch, { route, navigation }) => {
+  const { entryId } = route.params;
+
+  return {
+    remove: () =>
+      dispatch(
+        addEntry({
+          [entryId]:
+            timeToString() === entryId ? getDailyReminderValue() : null,
+        }),
+      ),
+    goBack: () => navigation.goBack(),
+  };
+};
+
+export const ConnectedEntryDetail = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(EntryDetail);
