@@ -4,7 +4,7 @@ import { MetricCard } from './MetricCard';
 import { connect } from 'react-redux';
 import { white } from '../utils/colors';
 
-const EntryDetail = ({ navigation, entryId, metrics }) => {
+const EntryDetail = ({ navigation, entryId, metrics, formattedDate }) => {
   const setTitle = entryId => {
     if (!entryId) return;
 
@@ -23,7 +23,7 @@ const EntryDetail = ({ navigation, entryId, metrics }) => {
 
   return (
     <View style={styles.container}>
-      <MetricCard metrics={metrics} date={entryId} />
+      <MetricCard metrics={metrics} date={formattedDate} />
     </View>
   );
 };
@@ -37,11 +37,12 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state, { route }) => {
-  const { entryId } = route.params;
+  const { entryId, formattedDate } = route.params;
 
   return {
     entryId,
     metrics: state[entryId],
+    formattedDate,
   };
 };
 

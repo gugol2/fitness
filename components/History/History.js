@@ -37,7 +37,9 @@ export const History = ({ navigation, dispatch, entries }) => {
         </View>
       ) : (
         <TouchableOpacity
-          onPress={() => navigation.navigate('EntryDetail', { entryId: key })}
+          onPress={() =>
+            navigation.navigate('EntryDetail', { entryId: key, formattedDate })
+          }
         >
           <MetricCard date={formattedDate} metrics={metrics} />
         </TouchableOpacity>
