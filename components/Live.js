@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -8,9 +8,12 @@ import {
 } from 'react-native';
 import { purple, white } from '../utils/colors';
 import { Foundation } from '@expo/vector-icons';
+import * as Location from 'expo-location';
+import * as Permissions from 'expo-permissions';
+import { calculateDirection } from '../utils/helpers';
 
 export const Live = () => {
-  const [state, setstate] = useState({
+  const [state, setState] = useState({
     coords: null,
     status: 'granted',
     direction: '',
@@ -18,8 +21,55 @@ export const Live = () => {
 
   const { status, coords, direction } = state;
 
+  useEffect(() => {
+    Permissions.getAsync(Permissions.LOCATION)
+      .then(({ status }) => {
+        if (status === 'granted') {
+          return setLocation();
+        }
+
+        const newState = {
+          ...state,
+          status,
+        };
+
+        setState(newState);
+      })
+      .catch(error => {
+        console.warn('Error getting Location permission: ', error);
+
+        const newState = {
+          ...state,
+          status,
+        };
+
+        setState(newState);
+      });
+  }, []);
+
   const askPermission = () => {
     alert('You requested permission!!');
+  };
+
+  const setLocation = () => {
+    Location.watchPositionAsync(
+      {
+        enableHighAccuracy: true,
+        timeInterval: 1,
+        distanceInterval: 1,
+      },
+      ({ coords }) => {
+        const newDirection = calculateDirection(coords.heading);
+
+        const newState = {
+          ...state,
+          coords,
+          direction: newDirection,
+        };
+
+        setState(newState);
+      },
+    );
   };
 
   if (status === null) {
