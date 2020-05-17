@@ -25,20 +25,19 @@ export const Live = () => {
     Permissions.getAsync(Permissions.LOCATION)
       .then(({ status }) => {
         if (status === 'granted') {
-          return setLocation();
+          return setLocation(status);
         }
+
         setState({ ...state, status });
       })
 
       .catch(error => {
         console.warn('Error getting Location permission: ', error);
 
-        const newState = {
+        setState({
           ...state,
           status,
-        };
-
-        setState(newState);
+        });
       });
   }, []);
 
@@ -46,7 +45,7 @@ export const Live = () => {
     Permissions.askAsync(Permissions.LOCATION)
       .then(({ status }) => {
         if (status === 'granted') {
-          return setLocation();
+          return setLocation(status);
         }
 
         setState({ ...state, status });
@@ -56,7 +55,7 @@ export const Live = () => {
       });
   };
 
-  const setLocation = () => {
+  const setLocation = status => {
     Location.watchPositionAsync(
       {
         enableHighAccuracy: true,
@@ -66,13 +65,11 @@ export const Live = () => {
       ({ coords }) => {
         const newDirection = calculateDirection(coords.heading);
 
-        const newState = {
-          status: 'granted',
+        setState({
+          status,
           coords,
           direction: newDirection,
-        };
-
-        setState(newState);
+        });
       },
     );
   };
