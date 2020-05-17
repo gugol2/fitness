@@ -112,13 +112,15 @@ export const Live = () => {
         <View style={styles.metric}>
           <Text style={[styles.header, { color: white }]}>Altitude</Text>
           <Text style={[styles.subHeader, { color: white }]}>
-            {Math.round(coords.altitude * 3.2808)} Feet
+            {/* {Math.round(coords.altitude * 3.2808)} Feet */}
+            {coords.altitude.toFixed(1)} Meters
           </Text>
         </View>
         <View style={styles.metric}>
           <Text style={[styles.header, { color: white }]}>Speed</Text>
           <Text style={[styles.subHeader, { color: white }]}>
-            {(coords.speed * 2.2369).toFixed(1)} MPH
+            {/* {(coords.speed * 2.2369).toFixed(1)} MPH */}
+            {(coords.speed * 3.6).toFixed(1)} KM/H
           </Text>
         </View>
       </View>
