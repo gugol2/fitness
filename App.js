@@ -13,6 +13,7 @@ import { CustomStatusBar } from './components/CustomStatusBar';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { ConnectedEntryDetail } from './components/EntryDetail';
+import { Live } from './components/Live';
 
 // const Tab = createBottomTabNavigator();
 const Tab =
@@ -81,6 +82,16 @@ const TabNav = () => (
           <Ionicons name='ios-bookmarks' size={30} color={color} />
         ),
         title: 'History',
+      }}
+    />
+    <Tab.Screen
+      name='Live'
+      component={Live}
+      options={{
+        tabBarIcon: ({ color }) => (
+          <Ionicons name='ios-speedometer' size={30} color={color} />
+        ),
+        title: 'Live',
       }}
     />
   </Tab.Navigator>
