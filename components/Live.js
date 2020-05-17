@@ -15,7 +15,7 @@ import { calculateDirection } from '../utils/helpers';
 export const Live = () => {
   const [state, setState] = useState({
     coords: null,
-    status: 'granted',
+    status: null,
     direction: '',
   });
 
@@ -27,14 +27,9 @@ export const Live = () => {
         if (status === 'granted') {
           return setLocation();
         }
-
-        const newState = {
-          ...state,
-          status,
-        };
-
-        setState(newState);
+        setState({ ...state, status });
       })
+
       .catch(error => {
         console.warn('Error getting Location permission: ', error);
 
@@ -48,7 +43,17 @@ export const Live = () => {
   }, []);
 
   const askPermission = () => {
-    alert('You requested permission!!');
+    Permissions.askAsync(Permissions.LOCATION)
+      .then(({ status }) => {
+        if (status === 'granted') {
+          return setLocation();
+        }
+
+        setState({ ...state, status });
+      })
+      .catch(error => {
+        console.warn('error asking Location permission: ', error);
+      });
   };
 
   const setLocation = () => {
@@ -62,7 +67,7 @@ export const Live = () => {
         const newDirection = calculateDirection(coords.heading);
 
         const newState = {
-          ...state,
+          status: 'granted',
           coords,
           direction: newDirection,
         };
@@ -104,16 +109,20 @@ export const Live = () => {
     <View style={styles.container}>
       <View style={styles.directionContainer}>
         <Text style={styles.header}>You're heading</Text>
-        <Text style={styles.direction}>North</Text>
+        <Text style={styles.direction}>{direction}</Text>
       </View>
       <View style={styles.metricContainer}>
         <View style={styles.metric}>
           <Text style={[styles.header, { color: white }]}>Altitude</Text>
-          <Text style={[styles.subHeader, { color: white }]}>{200} feet</Text>
+          <Text style={[styles.subHeader, { color: white }]}>
+            {Math.round(coords.altitude * 3.2808)} Feet
+          </Text>
         </View>
         <View style={styles.metric}>
           <Text style={[styles.header, { color: white }]}>Speed</Text>
-          <Text style={[styles.subHeader, { color: white }]}>{300} MPH</Text>
+          <Text style={[styles.subHeader, { color: white }]}>
+            {(coords.speed * 2.2369).toFixed(1)} MPH
+          </Text>
         </View>
       </View>
     </View>
