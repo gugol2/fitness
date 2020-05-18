@@ -3,6 +3,8 @@ import {
   getMetricMetaInfo,
   timeToString,
   getDailyReminderValue,
+  clearLocalNotification,
+  setLocalNotification,
 } from '../../utils/helpers';
 import { View, Text, StyleSheet, Platform } from 'react-native';
 import { AppSlider } from '../AppSlider';
@@ -91,6 +93,7 @@ export const AddEntry = ({ dispatch, alreadyLogged, navigation }) => {
     submitEntry({ key, entry });
 
     // Clear local notification
+    clearLocalNotification().then(setLocalNotification);
   };
 
   const reset = () => {

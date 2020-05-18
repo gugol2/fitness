@@ -14,6 +14,7 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import { createStackNavigator } from '@react-navigation/stack';
 import { ConnectedEntryDetail } from './components/EntryDetail';
 import { Live } from './components/Live';
+import { setLocalNotification } from './utils/helpers';
 
 // const Tab = createBottomTabNavigator();
 const Tab =
@@ -103,6 +104,10 @@ export default function App(props) {
     window.__REDUX_DEVTOOLS_EXTENSION__ &&
       window.__REDUX_DEVTOOLS_EXTENSION__(),
   );
+
+  React.useEffect(() => {
+    setLocalNotification();
+  }, []);
 
   return (
     <Provider store={store}>
