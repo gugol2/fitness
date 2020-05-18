@@ -1,12 +1,10 @@
 {
   "expo": {
+    "sdkVersion": "37.0.3",
     "name": "fitness",
+    "description": "The best triathlon tracker ever",
     "slug": "fitness",
-    "platforms": [
-      "ios",
-      "android",
-      "web"
-    ],
+    "platforms": ["ios", "android", "web"],
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -16,14 +14,19 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+    "notification": {
+      "icon": "./assets/images/icon-reduced.png"
+    },
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "org.fitness.exp"
+    },
+    "android": {
+      "package": "org.fitness.exp"
     }
   }
 }
