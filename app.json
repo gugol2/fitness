@@ -1,6 +1,6 @@
 {
   "expo": {
-    "sdkVersion": "37.0.3",
+    "sdkVersion": "37.0.0",
     "name": "fitness",
     "description": "The best triathlon tracker ever",
     "slug": "fitness",
@@ -15,7 +15,7 @@
       "backgroundColor": "#ffffff"
     },
     "notification": {
-      "icon": "./assets/images/icon-reduced.png"
+      "icon": "./assets/images/icon.png"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
